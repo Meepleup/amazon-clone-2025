@@ -1,0 +1,36 @@
+.card {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+}
+
+.image {
+  height: 200px;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+button {
+  margin-top: auto;
+  background: #ffd814;
+  border: 1px solid #fcd200;
+  border-radius: 6px;
+  padding: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #f7ca00;
+}
