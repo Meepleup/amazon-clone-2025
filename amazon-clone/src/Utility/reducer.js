@@ -1,52 +1,45 @@
-// ================= INITIAL STATE =================
+import { type } from "./actionType";
+
 export const initialState = {
   basket: [],
   user: null,
 };
 
-// ================= HELPER =================
-const getBasketTotal = (basket) =>
-  basket.reduce((sum, item) => sum + item.price, 0);
-
-// ================= REDUCER =================
 export const reducer = (state, action) => {
   switch (action.type) {
-    // ---------- BASKET ----------
-    case "ADD_TO_BASKET":
+    case type.ADD_TO_BASKET:
       return {
         ...state,
         basket: [...state.basket, action.item],
       };
 
-    case "REMOVE_FROM_BASKET":
+    case type.REMOVE_FROM_BASKET: {
+      const index = state.basket.findIndex(
+        (item) => item.id === action.id
+      );
+
+      const newBasket = [...state.basket];
+      if (index >= 0) newBasket.splice(index, 1);
+
       return {
         ...state,
-        basket: state.basket.filter(
-          (item) => item.id !== action.id
-        ),
+        basket: newBasket,
       };
+    }
 
-    case "EMPTY_BASKET":
+    case type.EMPTY_BASKET:
       return {
         ...state,
         basket: [],
       };
 
-    // ---------- USER ----------
-    case "SET_USER":
+    case type.SET_USER:
       return {
         ...state,
         user: action.user,
       };
 
-    // ---------- DEFAULT ----------
     default:
       return state;
   }
 };
-
-// ================= SELECTORS (OPTIONAL BUT CLEAN) =================
-export const selectBasket = (state) => state.basket;
-export const selectUser = (state) => state.user;
-export const selectBasketTotal = (state) =>
-  getBasketTotal(state.basket);

@@ -1,93 +1,53 @@
-import { useContext, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import {
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-} from "firebase/auth";
+import React, { useState, useContext } from "react";
+import styles from "./Auth.module.css";
 import { auth } from "../../Utility/firebase";
 import { DataContext } from "../../components/DataProvider/DataProvider";
 import { type } from "../../Utility/actionType";
-import Layout from "../../components/LayOut/LayOut";
+import { useNavigate, Link } from "react-router-dom";
 
 function Auth() {
-  const navigate = useNavigate();
-  const [, dispatch] = useContext(DataContext);
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [, dispatch] = useContext(DataContext);
+  const navigate = useNavigate();
 
-  // 🔐 SIGN IN
   const signIn = (e) => {
     e.preventDefault();
-
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        dispatch({
-          type: type.SET_USER,
-          user: userCredential.user,
-        });
-        navigate("/");
-      })
-      .catch((err) => setError(err.message));
-  };
-
-  // 🆕 REGISTER
-  const register = (e) => {
-    e.preventDefault();
-
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        dispatch({
-          type: type.SET_USER,
-          user: userCredential.user,
-        });
-        navigate("/");
-      })
-      .catch((err) => setError(err.message));
+    auth.signInWithEmailAndPassword(email, password).then((userAuth) => {
+      dispatch({
+        type: type.SET_USER,
+        user: userAuth.user,
+      });
+      navigate("/");
+    });
   };
 
   return (
-    <Layout>
-      <div style={{ maxWidth: 400, margin: "40px auto" }}>
-        <h2>Sign In</h2>
+    <div className={styles.auth}>
+      <div className={styles.card}>
+        <h1>Sign In</h1>
 
-        {error && <p style={{ color: "red" }}>{error}</p>}
+        <form onSubmit={signIn}>
+          <label>Email</label>
+          <input value={email} onChange={(e) => setEmail(e.target.value)} />
 
-        <form>
-          <input
-            type="email"
-            placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ width: "100%", marginBottom: 10 }}
-          />
-
+          <label>Password</label>
           <input
             type="password"
-            placeholder="Password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: "100%", marginBottom: 10 }}
           />
 
-          <button onClick={signIn} style={{ width: "100%" }}>
-            Sign In
-          </button>
+          <button type="submit">Sign In</button>
         </form>
 
-        <p style={{ marginTop: 20 }}>
-          New here?{" "}
-          <button onClick={register} style={{ color: "blue" }}>
-            Create an account
-          </button>
-        </p>
+        <p className={styles.divider}>New to Amazon?</p>
 
-        <Link to="/">Back to Home</Link>
+        <Link to="/signup" className={styles.createAccount}>
+          Create your Amazon account
+        </Link>
       </div>
-    </Layout>
+    </div>
   );
 }
 

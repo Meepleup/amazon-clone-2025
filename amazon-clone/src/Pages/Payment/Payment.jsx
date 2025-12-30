@@ -1,38 +1,27 @@
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { DataContext } from "../../components/DataProvider/DataProvider";
-import { db } from "../../Utility/firebase";
-import { doc, setDoc } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
+import { type } from "../../Utility/actionType";
+import { Navigate, useNavigate } from "react-router-dom";
 
 function Payment() {
   const [{ basket, user }, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
 
-  const handlePayment = async () => {
-    if (!user) return;
+  if (!user) return <Navigate to="/auth" />;
 
-    const orderRef = doc(
-      db,
-      "users",
-      user.uid,
-      "orders",
-      Date.now().toString()
-    );
+  const total = basket.reduce((sum, item) => sum + item.price, 0);
 
-    await setDoc(orderRef, {
-      basket,
-      created: new Date(),
-      amount: basket.reduce((sum, item) => sum + item.price, 0),
-    });
-
-    dispatch({ type: "EMPTY_BASKET" });
+  const placeOrder = () => {
+    dispatch({ type: type.EMPTY_BASKET });
     navigate("/orders");
   };
 
   return (
-    <div style={{ padding: 20 }}>
+    <div>
       <h2>Payment</h2>
-      <button onClick={handlePayment}>Place Order</button>
+      <p>{user.email}</p>
+      <h3>Total: ${total.toFixed(2)}</h3>
+      <button onClick={placeOrder}>Place Order (Demo)</button>
     </div>
   );
 }

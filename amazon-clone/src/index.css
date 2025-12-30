@@ -1,5 +1,10 @@
-.page {
-  max-width: 1500px;
+body {
+  margin: 0;
+  background-color: #eaeded;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  max-width: 1400px;
   margin: 0 auto;
-  padding: 0 16px;
 }
