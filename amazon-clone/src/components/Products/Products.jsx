@@ -7,16 +7,30 @@ import { productsUrl } from "../../api/endPoint";
 function Products() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    axios.get(productsUrl).then((res) => {
-      setProducts(res.data);
-      setLoading(false);
-    });
+    const fetchProducts = async () => {
+      try {
+        const res = await axios.get(productsUrl);
+        setProducts(res.data);
+      } catch (err) {
+        setError("Failed to load products");
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
   }, []);
 
   if (loading) {
-    return <p style={{ padding: 20 }}>Loading products...</p>;
+    return <p className={styles.status}>Loading products...</p>;
+  }
+
+  if (error) {
+    return <p className={styles.status}>{error}</p>;
   }
 
   return (

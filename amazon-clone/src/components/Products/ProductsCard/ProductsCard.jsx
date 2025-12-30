@@ -1,52 +1,39 @@
-import React, { useContext } from "react";
-import { DataContext } from "../../DataProvider/DataProvider";
+import { useContext } from "react";
 import styles from "./ProductsCard.module.css";
+import Rating from "../../Rating/Rating";
+import { DataContext } from "../../DataProvider/DataProvider";
 
-function ProductsCard({
-  product,
-  showButton = true,
-  showDescription = false,
-}) {
+function ProductsCard({ product }) {
   const [, dispatch] = useContext(DataContext);
 
-  // ✅ SAFETY GUARD (prevents white screen)
-  if (!product) {
-    return <p style={{ padding: 20 }}>Loading product...</p>;
-  }
-
-  const addToBasket = () => {
+  const addToCart = () => {
     dispatch({
       type: "ADD_TO_BASKET",
-      item: {
-        id: product.id,
-        title: product.title,
-        image: product.image,
-        price: product.price,
-        rating: product.rating?.rate || 0,
-      },
+      item: product,
     });
   };
 
   return (
-    <div className={styles.card}>
+    <article className={styles.card}>
       <img
         src={product.image}
         alt={product.title}
         className={styles.image}
       />
 
-      <p className={styles.title}>{product.title}</p>
+      <h4 className={styles.title}>{product.title}</h4>
 
-      {showDescription && (
-        <p className={styles.description}>{product.description}</p>
-      )}
+      <Rating
+        value={product.rating?.rate}
+        count={product.rating?.count}
+      />
 
-      <strong>${product.price}</strong>
+      <p className={styles.price}>${product.price}</p>
 
-      {showButton && (
-        <button onClick={addToBasket}>Add to cart</button>
-      )}
-    </div>
+      <button onClick={addToCart} className={styles.button}>
+        Add to Cart
+      </button>
+    </article>
   );
 }
 
