@@ -1,76 +1,76 @@
+/* ================= MAIN HEADER ================= */
 .header {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   background-color: #131921;
+  padding: 10px 16px;
   color: white;
-  padding: 10px 20px;
-  gap: 15px;
+  gap: 16px;
 }
 
+/* ================= LEFT ================= */
 .left {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 14px;
 }
 
 .logo {
   width: 100px;
   object-fit: contain;
-  cursor: pointer;
 }
 
+/* ================= LOCATION ================= */
 .location {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-size: 12px;
+  gap: 4px;
   cursor: pointer;
+  font-size: 12px;
 }
 
 .location p {
-  font-size: 10px;
+  margin: 0;
   color: #ccc;
 }
 
 .location span {
-  font-size: 12px;
   font-weight: bold;
 }
 
-/* ===== SEARCH ===== */
+/* ================= SEARCH ================= */
 .search {
-  display: flex;
   flex: 1;
-  height: 40px;
-  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
   overflow: hidden;
+  background-color: white;
 }
 
 .search select {
+  padding: 10px;
   border: none;
-  padding: 0 8px;
-  background: #f3f3f3;
+  background-color: #f3f3f3;
+  cursor: pointer;
 }
 
 .search input {
   flex: 1;
+  padding: 10px;
   border: none;
-  padding: 0 10px;
   outline: none;
 }
 
 .search button {
   background-color: #febd69;
   border: none;
-  padding: 0 12px;
+  padding: 10px 14px;
   cursor: pointer;
 }
 
-.search button:hover {
-  background-color: #f3a847;
-}
-
-/* ===== RIGHT SECTION ===== */
+/* ================= RIGHT ================= */
 .right {
   display: flex;
   align-items: center;
@@ -82,108 +82,107 @@
   align-items: center;
   gap: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
 
+/* ================= ACCOUNT / ORDERS ================= */
 .account,
 .orders {
   display: flex;
   flex-direction: column;
   font-size: 12px;
-  cursor: pointer;
   color: white;
   text-decoration: none;
-}
-
-.account p,
-.orders p {
-  font-size: 10px;
+  cursor: pointer;
 }
 
 .account span,
 .orders span {
   font-weight: bold;
+  font-size: 13px;
 }
 
+/* ================= CART ================= */
 .cart {
   display: flex;
   align-items: center;
   gap: 6px;
   color: white;
   text-decoration: none;
-  cursor: pointer;
   position: relative;
 }
 
 .count {
   position: absolute;
   top: -6px;
-  left: 12px;
-  background: #f08804;
-  color: black;
-  border-radius: 50%;
+  left: 14px;
+  background-color: #f08804;
+  color: #111;
   font-size: 12px;
-  padding: 2px 6px;
   font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 50%;
 }
 
-/* ===== SUB NAV ===== */
+/* ================= SUB NAV ================= */
 .subNav {
   display: flex;
   align-items: center;
-  gap: 20px;
+  justify-content: space-between;
   background-color: #232f3e;
-  padding: 8px 20px;
+  padding: 8px 16px;
   color: white;
   font-size: 14px;
 }
 
+/* ================= MENU ================= */
 .menu {
   display: flex;
   align-items: center;
-  gap: 5px;
-  font-weight: bold;
+  gap: 4px;
   cursor: pointer;
+  font-weight: bold;
 }
 
+/* ================= NAV LIST ================= */
 .subNav ul {
   display: flex;
   list-style: none;
-  gap: 15px;
-  padding: 0;
+  gap: 16px;
   margin: 0;
+  padding: 0;
   flex: 1;
 }
 
 .subNav li {
   cursor: pointer;
-  white-space: nowrap;
 }
 
 .subNav li:hover {
   text-decoration: underline;
 }
 
+/* ================= PROMO ================= */
 .promo {
   font-weight: bold;
   cursor: pointer;
 }
 
-/* ===== RESPONSIVE ===== */
+/* ================= RESPONSIVE ================= */
 @media (max-width: 900px) {
   .location,
-  .lang,
-  .orders {
+  .orders,
+  .promo {
     display: none;
   }
 
   .search {
-    height: 36px;
+    max-width: 400px;
   }
 }
 
 @media (max-width: 600px) {
-  .subNav ul,
-  .promo {
+  .search {
     display: none;
   }
 

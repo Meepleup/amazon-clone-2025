@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { Navigate } from "react-router-dom";
 import { DataContext } from "../DataProvider/DataProvider";
 
-function ProtectedRoute({ children, msg, redirect }) {
+function ProtectedRoute({ children }) {
   const [{ user }] = useContext(DataContext);
 
   if (!user) {
-    return <Navigate to="/Auth" state={{ msg, redirect }} replace />;
+    return <Navigate to="/auth" replace />;
   }
 
   return children;

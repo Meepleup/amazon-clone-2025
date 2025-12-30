@@ -4,12 +4,10 @@ import {
   signInWithEmailAndPassword,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-
 import { auth } from "../../Utility/firebase";
 import { DataContext } from "../../components/DataProvider/DataProvider";
 import { type } from "../../Utility/actionType";
-
-import Layout from "../../components/Layout/Layout";
+import Layout from "../../components/LayOut/LayOut";
 
 function Auth() {
   const navigate = useNavigate();
