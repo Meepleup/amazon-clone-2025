@@ -4,13 +4,13 @@ import { getFirestore } from "firebase/firestore";
 import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyA4405Fpo_PCINTZovz0w9y7aYMQRTxxEc",
-  authDomain: "amzon-clone-2025.firebaseapp.com",
-  projectId: "amzon-clone-2025",
-  storageBucket: "amzon-clone-2025.firebasestorage.app",
-  messagingSenderId: "604094674022",
-  appId: "1:604094674022:web:49b0fe7907726127e269a7",
-  measurementId: "G-WMYGYQNBWB"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
