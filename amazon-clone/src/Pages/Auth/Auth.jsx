@@ -4,6 +4,8 @@ import { auth } from "../../Utility/firebase";
 import { DataContext } from "../../components/DataProvider/DataProvider";
 import { type } from "../../Utility/actionType";
 import { useNavigate, Link } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 function Auth() {
   const [email, setEmail] = useState("");
@@ -11,16 +13,23 @@ function Auth() {
   const [, dispatch] = useContext(DataContext);
   const navigate = useNavigate();
 
-  const signIn = (e) => {
-    e.preventDefault();
-    auth.signInWithEmailAndPassword(email, password).then((userAuth) => {
-      dispatch({
-        type: type.SET_USER,
-        user: userAuth.user,
-      });
-      navigate("/");
+  const signIn = async (e) => {
+  e.preventDefault();
+  try {
+    const userAuth = await signInWithEmailAndPassword(auth, email, password);
+
+    dispatch({
+      type: type.SET_USER,
+      user: userAuth.user,
     });
-  };
+
+    navigate("/");
+  } catch (error) {
+    console.error(error.message);
+    alert(error.message);
+  }
+};
+
 
   return (
     <div className={styles.auth}>
